@@ -88,7 +88,7 @@
 </head>
 <body>
     <div class="login-form">
-        <form action="/Employee/updateThongTin" method="post">
+        <form action="/Employee/updateThongTin" method="post" enctype="multipart/form-data" >
             <h2 class="text-center">Update thông tin</h2>
             <div class="form-group">
                 <div class="form-group">
@@ -100,8 +100,8 @@
                 <label>Mật Khẩu</label>
                 @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @type = "Password", @required = "required" })
                 @*<input class="form-control" name="Password" required>*@
-                </div>
-            
+            </div>
+
 
             <div class="form-group">
                 <label>Email</label>
@@ -130,15 +130,23 @@
                 @Html.TextBoxFor(model => model.Birthday, new { @class = "form-control", @type = "date", @required = "required" })
                 @*<input class="form-control" name="Birthday" required>*@
             </div>
+
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Update thông tin</button>
+                <label>Avata </label>
+                <div class="thumbnail" id="photocard"><img src="http://placehold.it/242x200"></img></div>
+                @Html.TextBoxFor(model => model.ImageFile, new { @class = "form-control", @type = "file", @required = "required",@onchange = "uploadImageHelper.uploadFile(this.files);"})
+                @*<input id="file" multiple accept="image/*" name="ImageFile" onchange="uploadImageHelper.uploadFile(this.files)" style="display: none;" type="file" classs = "btn btn-primary btn-file"></input>*@
             </div>
-            <p>
-                @if (@ViewBag.SuccessMessage != null)
-                {
-                    @ViewBag.SuccessMessage
-                }
-            </p>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Update thông tin</button>
+    </div>
+    <p>
+        @if (@ViewBag.SuccessMessage != null)
+        {
+            @ViewBag.SuccessMessage
+        }
+    </p>
 
     </div>
 
@@ -147,5 +155,95 @@
     </form>
 
     </div>
+
+    <script>
+        var uploadImageHelper = (function () {
+    var selectedFile;
+    var cardsPlaceHolder;
+    return {
+        fileSelection: function () {
+            var selectedfile = $('#file')[0].files[0];
+            selectedFile = selectedfile;
+            document.getElementById("filefield").value = selectedfile.name;
+
+        },
+        uploadFile: function (file) {
+            var photoPlace = document.getElementById("photocard");
+            if (!file.length) {
+                photoPlace.innerHTML = "<p>No files selected!</p>";
+            } else {
+                selectedFile = file;
+                photoPlace.innerHTML = "";
+                for (var i = 0; i < file.length; i++) {
+                    var img = document.createElement("img");
+                    img.src = window.URL.createObjectURL(file[i]);
+                    img.height = 200;
+                    img.weight = 150;
+                    img.onload = function () {
+                        window.URL.revokeObjectURL(this.src);
+                    }
+                    photoPlace.appendChild(img);
+                    var fileName = document.createElement("p");
+                    fileName.innerHTML = file[i].name;
+                    var fileSize = document.createElement("p");
+                    fileSize.innerHTML = file[i].size;
+                    photoPlace.appendChild(fileName);
+                    photoPlace.appendChild(fileSize);
+                }
+            }
+        },
+        uploadFiles: function (files) {
+            cardsPlaceHolder = document.getElementById("cardPlaceHolder");
+            if (!files.length) {
+                cardsPlaceHolder.innerHTML = "<p>No files selected!</p>";
+            } else {
+                cardsPlaceHolder.innerHTML = "";
+                var list = document.createElement("ul");
+                list.className = "list-inline";
+                cardsPlaceHolder.appendChild(list);
+                for (var i = 0; i < files.length; i++) {
+
+                    var li = document.createElement("li");
+                    list.appendChild(li);
+
+                    var thumbnailDiv = document.createElement("div");
+                    thumbnailDiv.className = "thumbnail";
+                    thumbnailDiv.id = i;
+
+                    var img = document.createElement("img");
+                    img.src = window.URL.createObjectURL(files[i]);
+                    img.height = 100;
+                    img.onload = function () {
+                        window.URL.revokeObjectURL(this.src);
+                    }
+
+                    var infoDiv = document.createElement("div");
+                    infoDiv.className = "caption";
+                    var fileName = document.createElement("p");
+                    fileName.innerHTML = "Name: " + files[i].name;
+                    var fileSize = document.createElement("p");
+                    fileSize.innerHTML = "File size: " + files[i].size;
+                    infoDiv.appendChild(fileName);
+                    infoDiv.appendChild(fileSize);
+
+                    thumbnailDiv.appendChild(img);
+                    thumbnailDiv.appendChild(infoDiv);
+                    li.appendChild(thumbnailDiv);
+                }
+            }
+        },
+        getFileName: function () {
+            return selectedFile.name;
+        },
+
+        getFileSize: function () {
+            return selectedFile.size;
+        },
+        getFileExtension: function () {
+
+        }
+    }
+})();
+    </script>
 </body>
 </html>

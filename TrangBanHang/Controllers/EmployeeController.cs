@@ -205,27 +205,61 @@ namespace TrangBanHang.Controllers
 		{
 			if (UserSessionHelper.checkSession(Constant.ROLE_ADMIN) || UserSessionHelper.checkSession(Constant.ROLE_USER) || UserSessionHelper.checkSession(Constant.ROLE_EMPLOYEE))
 			{
-				UserSession userSession = UserSessionHelper.getSession();
+                string fileName = Path.GetFileNameWithoutExtension(employee.ImageFile.FileName);
+                string extension = Path.GetExtension(employee.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                employee.Avatar = fileName;
 
-				employee.Avatar = "";
-				employee.RoleId = 3;
+                employee.RoleId = 3;
+                employee.Avatar = "abc";
+                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                employee.ImageFile.SaveAs(fileName);
+
+                UserSession userSession = UserSessionHelper.getSession();
+
+				employee.Avatar = fileName;
+				
 				try
 				{
-					using (DataWebManagersEntities update = new DataWebManagersEntities())
-					{
-						var userLogin = update.Employees.Where(a => a.Id == userSession.id).SingleOrDefault();
-						userLogin.FullName = employee.FullName;
-						userLogin.Address = employee.FullName;
-						userLogin.BankAccount = employee.BankAccount;
-						userLogin.Birthday = employee.Birthday;
-						userLogin.Email = employee.Email;
-						update.Employees.AddOrUpdate(userLogin);
-						update.SaveChanges();
-					}
+                    if(UserSessionHelper.checkSession(Constant.ROLE_ADMIN) || UserSessionHelper.checkSession(Constant.ROLE_EMPLOYEE))
+                    {
+                        employee.RoleId = 2 ;
+                        using (DataWebManagersEntities update = new DataWebManagersEntities())
+                        {
+                            var userLogin = update.Employees.Where(a => a.Id == userSession.id).SingleOrDefault();
+                            userLogin.FullName = employee.FullName;
+                            userLogin.Address = employee.Address;
+                            userLogin.BankAccount = employee.BankAccount;
+                            userLogin.Birthday = employee.Birthday;
+                            userLogin.Email = employee.Email;
+                            update.Employees.AddOrUpdate(userLogin);
+                            update.SaveChanges();
+                        }
 
-					ModelState.Clear();
-					ViewBag.SuccessMessage = "update thành công";
-					return View();
+                        ModelState.Clear();
+                        ViewBag.SuccessMessage = "update thành công";
+                        return View();
+                    }
+                    else
+                    {
+                        using (DataWebManagersEntitiesCustommer updateCustomer = new DataWebManagersEntitiesCustommer())
+                        {
+                            var userLoginCustomer = updateCustomer.Customers.Where(a => a.Id == userSession.id).SingleOrDefault();
+                            userLoginCustomer.FullName = employee.FullName;
+                            userLoginCustomer.Password = employee.Password;
+                            userLoginCustomer.Address = employee.Address;
+                            userLoginCustomer.Avatar = employee.Avatar;
+                            userLoginCustomer.Birthday = employee.Birthday;
+                            userLoginCustomer.Email = employee.Email;
+                            updateCustomer.Customers.AddOrUpdate(userLoginCustomer);
+                            updateCustomer.SaveChanges();
+                        }
+
+                        ModelState.Clear();
+                        ViewBag.SuccessMessage = "update thành công";
+                        return View();
+                    }
+					
 				}
 				catch
 				{
