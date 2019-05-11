@@ -208,27 +208,25 @@ namespace TrangBanHang.Controllers
                 string fileName = Path.GetFileNameWithoutExtension(employee.ImageFile.FileName);
                 string extension = Path.GetExtension(employee.ImageFile.FileName);
                 fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
-                employee.Avatar = fileName;
-
-                employee.RoleId = 3;
-                employee.Avatar = "abc";
-                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+				employee.Avatar = fileName;
+				fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
                 employee.ImageFile.SaveAs(fileName);
 
                 UserSession userSession = UserSessionHelper.getSession();
 
-				employee.Avatar = fileName;
+			
 				
 				try
 				{
                     if(UserSessionHelper.checkSession(Constant.ROLE_ADMIN) || UserSessionHelper.checkSession(Constant.ROLE_EMPLOYEE))
                     {
-                        employee.RoleId = 2 ;
+
                         using (DataWebManagersEntities update = new DataWebManagersEntities())
                         {
                             var userLogin = update.Employees.Where(a => a.Id == userSession.id).SingleOrDefault();
                             userLogin.FullName = employee.FullName;
-                            userLogin.Address = employee.Address;
+							userLogin.Avatar = employee.Avatar;
+							userLogin.Address = employee.Address;
                             userLogin.BankAccount = employee.BankAccount;
                             userLogin.Birthday = employee.Birthday;
                             userLogin.Email = employee.Email;
