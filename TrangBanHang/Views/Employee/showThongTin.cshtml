@@ -89,9 +89,12 @@
 
 
 
-<div style="display: table; margin-left: 36%;" >
+<div style="display: table; margin-left: 36%;">
     <h4>Thông tin cá nhân</h4>
     <hr />
+
+        <img src="~/Image/@Html.DisplayFor(model => model.Avatar)" class="rounded-circle" width="150" height="150" />
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.UserName)
@@ -148,15 +151,9 @@
         <dd>
             @Html.DisplayFor(model => model.BankAccount)
         </dd>
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.Avatar)
-        </dt>
 
-        <dd>
 
-            <img src="~/Image/@Html.DisplayFor(model => model.Avatar)" width="200" height="200" />
-        </dd>
+
 
 
 
