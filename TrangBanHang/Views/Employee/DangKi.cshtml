@@ -4,151 +4,131 @@
     Layout = "~/Areas/User/Views/Shared/_Layout.cshtml";
 }
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sign Up</title>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Đăng nhập hệ thống</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        body {
-            color: #fff;
-            background: #3598dc;
-        }
-
-        .form-control {
-            min-height: 41px;
-            background: #f2f2f2;
-            box-shadow: none !important;
-            border: transparent;
-        }
-
-            .form-control:focus {
-                background: #e2e2e2;
-            }
-
-        .form-control, .btn {
-            border-radius: 2px;
-        }
-
-        .login-form {
-            width: 350px;
-            margin: 30px auto;
-            text-align: center;
-        }
-
-            .login-form h2 {
-                margin: 10px 0 25px;
-            }
-
-            .login-form form {
-                color: #7a7a7a;
-                border-radius: 3px;
-                margin-bottom: 15px;
-                background: #fff;
-                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-                padding: 30px;
-            }
-
-            .login-form .btn {
-                font-size: 16px;
-                font-weight: bold;
-                background: #3598dc;
-                border: none;
-                outline: none !important;
-            }
-
-                .login-form .btn:hover, .login-form .btn:focus {
-                    background: #2389cd;
-                }
-
-            .login-form a {
-                color: #fff;
-                text-decoration: underline;
-            }
-
-                .login-form a:hover {
-                    text-decoration: none;
-                }
-
-            .login-form form a {
-                color: #7a7a7a;
-                text-decoration: none;
-            }
-
-                .login-form form a:hover {
-                    text-decoration: underline;
-                }
-    </style>
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Assets/Login/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/Login/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/Login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/Login/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/Login/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/Login/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Assets/Login/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Assets/Login/css/main.css">
+    <!--===============================================================================================-->
 </head>
 <body>
-    <div class="login-form">
-        <form action="/Employee/DangKi" method="post">
-            <h2 class="text-center">Đăng Kí</h2>
-            <div class="form-group">
-                <label>Tài Khoản</label>
-                @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @type = "text", @required = "required" })
-                @*<input class="form-control" name="UserName" required>*@
-            </div>
-            <div class="form-group">
-                <label>Mật Khẩu</label>
-                @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @type = "Password", @required = "required" })
-                @*<input class="form-control" name="Password" required>*@
-            </div>
-            <div class="form-group">
-                <label>Họ tên</label>
-                @Html.TextBoxFor(model => model.FullName, new { @class = "form-control", @type = "text", @required = "required" })
-                @*<input class="form-control" name="FullName" required>*@
-            </div>
 
-            <div class="form-group">
-                <label>Email</label>
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @type = "text", @required = "required" })
-                @*<input class="form-control" name="Email" required>*@
-            </div>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100 p-l-50 p-r-50 p-t-77 p-b-30">
+                <form class="login100-form validate-form" action="/Employee/DangKi" method="post">
+                    <span class="login100-form-title p-b-55">
+                        Sign Up
+                    </span>
 
-            <div class="form-group">
-                <label>Phone</label>
-                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", @type = "text", @required = "required" })
-                @*<input class="form-control" name="Phone" required>*@
-            </div>
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Valid username is required: A - Z, 0 - 9">
+                        <input class="input100" id="UserName" name="UserName" required="required" type="text" value="" placeholder="Username" />
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <span class="lnr lnr-user"></span>
+                        </span>
+                    </div>
 
-            <div class="form-group">
-                <label>Address</label>
-                @Html.TextBoxFor(model => model.Address, new { @class = "form-control", @type = "text", @required = "required" })
-                @*<input class="form-control" name="Address" required>*@
-            </div>
-            <div class="form-group">
-                <label>BankAccount</label>
-                @Html.TextBoxFor(model => model.BankAccount, new { @class = "form-control", @type = "text", @required = "required" })
-                @*<input class="form-control" name="BankAccount" required>*@
-            </div>
-            <div class="form-group">
-                <label>Ngày sinh</label>
-                @Html.TextBoxFor(model => model.Birthday, new { @class = "form-control", @type = "date", @required = "required" })
-                @*<input class="form-control" name="Birthday" required>*@
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-lg btn-block">Đăng Kí</button>
-            </div>
-            <p>
-                @if (@ViewBag.SuccessMessage != null)
-                {
-                    @ViewBag.SuccessMessage
-                }
-            </p>
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Password is required">
+                        <input class="input100" id="Password" name="Password" required="required" type="Password" value="" placeholder="Password" />
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <span class="lnr lnr-lock"></span>
+                        </span>
+                    </div>
 
-</div>
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Fullname is required">
+                        <input class="input100" id="FullName" name="FullName" required="required" type="text" value="" placeholder="Full Name" />
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <span class="lnr lnr-license"></span>
+                        </span>
+                    </div>
 
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" id="Email" name="Email" required="required" type="text" value="" placeholder="Email" />
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <span class="lnr lnr-envelope"></span>
+                        </span>
+                    </div>
 
-            
-        </form>
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Phone number is required">
+                        <input class="input100" id="Phone" name="Phone" required="required" type="text" value="" placeholder="Phone Number" />
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <span class="lnr lnr-phone-handset"></span>
+                        </span>
+                    </div>
 
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Address is required">
+                        <input class="input100" id="Address" name="Address" required="required" type="text" value="" placeholder="Address" />
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <span class="lnr lnr-map-marker"></span>
+                        </span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-16" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" id="BankAccount" name="BankAccount" required="required" type="text" value="" placeholder="Bank Account" />
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <span class="lnr lnr-database"></span>
+                        </span>
+                    </div>
+
+                    <div class="container-login100-form-btn p-t-25">
+                        <button class="login100-form-btn">
+                            Sign Up
+                        </button>
+                    </div>
+                    <p>
+                        @if (@ViewBag.SuccessMessage != null)
+                        {
+                            @ViewBag.SuccessMessage
+                        }
+                    </p>
+                    <div class="text-center w-full p-t-42 p-b-22">
+                        <a class="txt1 bo1 hov1" href="#">
+                            Back to Login
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+
+
+
+    <!--===============================================================================================-->
+    <script src="~/Assets/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/Login/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Assets/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/Login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Assets/Login/js/main.js"></script>
+
 </body>
 </html>

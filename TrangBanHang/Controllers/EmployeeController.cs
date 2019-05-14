@@ -184,8 +184,31 @@ namespace TrangBanHang.Controllers
 			{
 			
 				UserSession userSession = UserSessionHelper.getSession();
-				var userLogin = db.Employees.Where(a => a.Id == userSession.id).SingleOrDefault();
-				return View(userLogin);
+                var userLogin = db.Employees.Where(a => a.Id == userSession.id).SingleOrDefault();
+               
+                if (userLogin == null)
+                {
+                    userLogin = new Employee();
+                    var userLoginCustommer = dbCustomer.Customers.Where(a => a.Id == userSession.id).SingleOrDefault();
+                    userLogin.FullName = userLoginCustommer.FullName;
+                    userLogin.Address = userLoginCustommer.Address;
+                    userLogin.Avatar = userLoginCustommer.Avatar;
+                    userLogin.BankAccount = userLoginCustommer.FullName;
+                    userLogin.Birthday = userLoginCustommer.Birthday;
+                    userLogin.Email = userLoginCustommer.Email;
+                    userLogin.UserName = userLoginCustommer.UserName;
+                    userLogin.Phone = userLoginCustommer.Phone;
+                    if (userLogin.Avatar.Equals("abc"))
+                        userLogin.Avatar = "defaultAvata.png";
+                    return View(userLogin);
+                }
+                else
+                {
+                    if (userLogin.Avatar.Equals("abc"))
+                        userLogin.Avatar = "defaultAvata.png";
+                    return View(userLogin);
+                }
+				
 			}
 			catch
 			{
